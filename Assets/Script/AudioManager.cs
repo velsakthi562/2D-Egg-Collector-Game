@@ -6,9 +6,13 @@ public class AudioManager : MonoBehaviour
 {
     private static AudioManager Instance;
 
+    public AudioSource audioSource;
+
     public AudioClip eggCraking;
     public AudioClip collectingEgg;
     public AudioClip dropEgg;
+    public AudioClip buttonClick;
+    
 
     private void Awake()
     {
@@ -18,7 +22,8 @@ public class AudioManager : MonoBehaviour
     public void PlayAudio(AudioClip clip)
     {
 
-        //AudioSource.Play(clip);
+        audioSource.clip = clip;
+        audioSource.Play();
 
     }
 

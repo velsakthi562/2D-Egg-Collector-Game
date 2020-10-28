@@ -12,21 +12,25 @@ public class BasketController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+      
+        
+
         if (manager.IsGameOver== false)
         {
+
             float hor = Input.GetAxis("Horizontal");
 
-            if (transform.position.x <= 2.15f && hor > 0f)
+            if (transform.position.x <= 2f && hor > 0f)
             {
                 transform.Translate(Vector3.right * hor * speed * Time.deltaTime);
             }
-            else if (transform.position.x >= -2.15f && hor < 0f)
+            else if (transform.position.x >= -2f && hor < 0f)
             {
                 transform.Translate(Vector3.right * hor * speed * Time.deltaTime);
             }
@@ -34,4 +38,5 @@ public class BasketController : MonoBehaviour
 
           
     }
+
 }

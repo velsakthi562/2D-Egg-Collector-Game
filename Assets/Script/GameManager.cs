@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject[] eggImages;
     public GameObject gameOverScreen;
+    public AudioSource mainMusic;
+    
 
     bool isPaused = false;
 
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
 
         isPaused = false;
         Time.timeScale = 1;
+        
     }
 
     public void Reload()
@@ -90,11 +93,13 @@ public class GameManager : MonoBehaviour
             {
                 isPaused = true;
                 Time.timeScale = 0;
+                mainMusic.Pause();
             }
             else
             {
                 isPaused = false;
                 Time.timeScale = 1;
+                mainMusic.Play();
             }
         }
     }
