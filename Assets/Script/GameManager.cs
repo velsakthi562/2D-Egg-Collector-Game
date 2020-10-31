@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] eggImages;
     public GameObject gameOverScreen;
     public AudioSource mainMusic;
+
+    public AudioManager audioManager;
     
 
     bool isPaused = false;
@@ -46,23 +48,11 @@ public class GameManager : MonoBehaviour
         if(life == 0)
         {
             GameOver();
+            
         }
     }
 
-    void GameOver()
-    {
-        if (PlayerPrefs.HasKey("HIGHSCORE"))
-        {
-            if(PlayerPrefs.GetInt("HIGHSCORE") < score)
-            {
-                PlayerPrefs.SetInt("HIGHSCORE", score);
-            }
-        }
-
-        isGameOver = true;
-        gameOverScreen.SetActive(true);
-        Debug.Log("Game Over");
-    }
+   
 
     // Start is called before the first frame update
     void Start()
@@ -72,19 +62,44 @@ public class GameManager : MonoBehaviour
 
         isPaused = false;
         Time.timeScale = 1;
+        audioManager = FindObjectOfType<AudioManager>();
         
     }
+    //GameOver
+    void GameOver()
+    {
+        audioManager.PlayAudio(audioManager.gameOverclip);
 
+        if (PlayerPrefs.HasKey("HIGHSCORE"))
+        {
+            if (PlayerPrefs.GetInt("HIGHSCORE") < score)
+            {
+                PlayerPrefs.SetInt("HIGHSCORE", score);
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HIGHSCORE", score);
+        }
+        
+        mainMusic.Pause();
+        isGameOver = true;
+        
+        gameOverScreen.SetActive(true);
+       
+        Debug.Log("Game Over");
+    }
+    //Reload Scene
     public void Reload()
     {
         SceneManager.LoadScene(1);
     }
-
+    //Goto Menu
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
     }
-
+    //press Escape pause game
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

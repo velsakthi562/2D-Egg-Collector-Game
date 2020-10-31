@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip collectingEgg;
     public AudioClip dropEgg;
     public AudioClip buttonClick;
+    public AudioClip gameOverclip;
     
 
     private void Awake()

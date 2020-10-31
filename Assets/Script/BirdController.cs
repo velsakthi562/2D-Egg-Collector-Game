@@ -5,6 +5,7 @@ using UnityEngine;
 public class BirdController : MonoBehaviour
 {
     private GameManager manager;
+    private AudioManager audioManager;
 
     public float speed;
     public bool isflipping = false;
@@ -23,6 +24,7 @@ public class BirdController : MonoBehaviour
     {
         manager = FindObjectOfType<GameManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -35,16 +37,17 @@ public class BirdController : MonoBehaviour
 
         timer = timer - Time.deltaTime;
 
-        if (timer < 0f)
-        {
-            int randomNumber = Random.Range(0, randomTimer.Length);
 
+        if (timer < 0f)
+        {  
+            int randomNumber = Random.Range(0, randomTimer.Length);
             timer = randomTimer[randomNumber];
             Debug.Log(timer);
+            audioManager.PlayAudio(audioManager.dropEgg);
             Instantiate(egg, dropEggPosition.position, dropEggPosition.rotation);
         }
-
-
+       
+        //flip
         if (isflipping == false && transform.position.x < 2f)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -64,7 +67,6 @@ public class BirdController : MonoBehaviour
             isflipping = false;
             spriteRenderer.flipX = isflipping;
         }
-
 
     }
 }   

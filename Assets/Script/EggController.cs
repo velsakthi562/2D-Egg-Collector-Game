@@ -8,10 +8,12 @@ public class EggController : MonoBehaviour
     public Transform dropOmbeletPosition;
 
     private GameManager manager;
+    private AudioManager audioManager;
 
     void Start()
     {
         manager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
 
@@ -20,12 +22,14 @@ public class EggController : MonoBehaviour
         if(collision.gameObject.CompareTag("ground"))
         {
             manager.ReduceLife();
+            audioManager.PlayAudio(audioManager.eggCraking);
             Instantiate(ombelet, dropOmbeletPosition.position, ombelet.transform.rotation);
             Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("Basket"))
         {
             manager.Score += 10;
+            audioManager.PlayAudio(audioManager.collectingEgg);
             Destroy(gameObject);
         }
     }
